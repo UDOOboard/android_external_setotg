@@ -1,7 +1,7 @@
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
@@ -21,15 +21,12 @@ int SetGpioOutDirection(unsigned int GpioNum)
 	
 	if(fd < 0)
 	{
-	    printf("Opening file '%s' Failed\n", buf);
-	    printf("Error no is : %d\n", errno);
-	    printf("Error description is : %s\n",strerror(errno));
-	    return 0;
+		printf("Opening file '%s' Failed\n", buf);
+		return 0;
 	}
 
-	write(fd, "out", 3); 
-
-	close(fd);	
+	write(fd, "out", 3);
+	close(fd);
 	
 	return 1;
 }
@@ -45,17 +42,13 @@ int SetGpioValue(unsigned int GpioNum, unsigned char Value)
 	
 	if(fd < 0)
 	{
-	    printf("Opening file '%s' Failed\n", buf);
-	    printf("Error no is : %d\n", errno);
-	    printf("Error description is : %s\n",strerror(errno));
-	    return 0;
+		printf("Opening file '%s' Failed\n", buf);
+		return 0;
 	}
 	
 	sprintf(buf, "%u", Value);
-
-	write(fd, buf, 1); 
-
-	close(fd);	
+	write(fd, buf, 1);
+	close(fd);
 	
 	return 1;
 }
@@ -67,8 +60,6 @@ int main(int argc, char *argv[])
 		ShowHelp();
 		return 1;
 	}
-	
-	//system("id");
 	
 	if(!SetGpioOutDirection(128))
 	{
